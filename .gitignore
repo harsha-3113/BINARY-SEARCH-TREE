@@ -1,0 +1,12 @@
+# Ignore compiled executables
+tree
+
+# Ignore object files
+*.o
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore temporary files
+*.swp
+*~

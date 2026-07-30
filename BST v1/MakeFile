@@ -1,0 +1,35 @@
+#flags is a varable containing set of compiler flags which tell computer how to compile code
+#walll = shows the warnings(if not used,i would be clueless where i went wrong)
+#O2 = optimization level 2 (makes the code run faster)
+#std=c2x = tells the compiler to use the c2x standard (latest version of c)
+flags=-Wall -O2 -std=c2x
+
+#ldflags is a variable containing set of linker flags which tell computer how to link code
+ldflags=
+
+#to create all i first need  clear all .o files and create tree
+all: clean tree
+
+#and to create a tree i need to create tree.o(tree.o is the object file which is created by compiling tree.c)
+tree: tree.o
+	cc ${flags} $^ -o $@ ${ldflags}
+#this is nothing but a command to link the object file tree.o to create an executable file tree
+#cc is the command to compile and link the code
+#${flags} is a variable which contains the compiler flags (in this case -Wall -O2 -std=c2x)
+#$^ is a special variable which contains all the dependencies of the target (in this case tree.o)
+#-o stands for "name the output file this"
+#$@ is a special variable which contains the name of the target (in this case tree)
+#${ldflags} is a variable which contains the linker flags (in this case it is empty)
+
+tree.o: tree.c
+	cc ${flags} -c $^
+#to create tree.o i need to compile tree.c
+#-c stands for "compile only, do not link"
+#$^ is a special variable which contains all the dependencies of the target (in this case tree.c)
+
+clean:
+	rm -f *.o tree
+#clean is a target which is used to remove all the object files and the executable file
+#rm -f is a command to remove files
+#*.o is a wildcard which means all the files with .o extension
+#tree is the name of the executable file which is created after linking the object files
